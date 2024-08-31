@@ -57,9 +57,10 @@ jobs:
           path: .
 
       - name: Upload Helm package
+        if: github.ref_name == 'main'
         uses: actions/upload-artifact@v4
         with:
-          name: helm-package
+          name: helm-artifacts
           path: ${{ github.workspace }}/helm-charts
 
   docker-ci:
@@ -94,7 +95,7 @@ jobs:
     needs: python-ci
     steps:
 
-          
+
       - uses: actions/download-artifact@v4
         name: Download Helm artifacts
         with:
@@ -118,4 +119,3 @@ jobs:
         with:
           name: helm-package
           path: ./*.tgz
-
